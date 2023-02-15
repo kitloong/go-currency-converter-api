@@ -1,0 +1,7 @@
+.idea/
+memprofile.out
+cpuprofile.out
+memprofile.svg
+cpuprofile.svg
+profile.cov
+coverage.html

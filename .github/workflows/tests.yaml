@@ -1,0 +1,79 @@
+name: Run tests
+
+on: [ push, pull_request ]
+
+jobs:
+
+  lint:
+
+    name: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.19.x
+
+      - name: Set GOPATH and PATH
+        run: |
+          echo "GOPATH=$(dirname $GITHUB_WORKSPACE)" >> $GITHUB_ENV
+          echo "$(dirname $GITHUB_WORKSPACE)/bin" >> $GITHUB_PATH
+        shell: bash
+
+      - name: Vet
+        run: go vet ./...
+
+      - name: Staticcheck
+        uses: dominikh/staticcheck-action@v1.2.0
+        with:
+          version: "2022.1.1"
+
+      - name: Golangci-lint
+        uses: golangci/golangci-lint-action@v2
+        with:
+          version: v1.31
+
+  test:
+
+    strategy:
+      matrix:
+        go-version: [ 1.19.x, 1.20.x ]
+        os: [ ubuntu-latest ]
+
+    runs-on: ${{ matrix.os }}
+
+    name: Go ${{ matrix.go-version }}
+
+    steps:
+      - name: Install Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: ${{ matrix.go-version }}
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Restore Cache
+        uses: actions/cache@v2
+        with:
+          path: ~/go/pkg/mod
+          key: ${{ runner.os }}-v1-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-v1-go-
+
+      - name: Test
+        run: go test -race -covermode=atomic -coverprofile="profile.cov" ./...
+
+      - name: Coverage
+        if: matrix.os == 'ubuntu-latest' && matrix.go-version == '1.16.x'
+        run: go tool cover -html=profile.cov -o coverage.html
+
+      - name: Send Coverage
+        if: matrix.os == 'ubuntu-latest' && matrix.go-version == '1.16.x'
+        uses: actions/upload-artifact@v2
+        with:
+          name: code-coverage
+          path: coverage.html

@@ -1,0 +1,18 @@
+run:
+  deadline: 5m
+
+linters:
+  disable-all: true
+  enable:
+    - errcheck
+    - gosimple
+    - govet
+    - ineffassign
+    - staticcheck
+    - typecheck
+    - unused
+    - revive
+    - goimports
+    - gocritic
+    - bodyclose
+    - exportloopref
