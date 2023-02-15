@@ -5,6 +5,20 @@ A GoLang wrapper of [Currency Converter API](https://www.currencyconverterapi.co
 You can use [Currency Converter API](https://www.currencyconverterapi.com) to easily query conversion between difference
 currencies and check historical rate with a given date range.
 
+## Installation
+
+Use go get
+
+```bash
+go get github.com/kitloong/go-currency-converter-api
+```
+
+Then import
+
+```go
+import "github.com/kitloong/go-currency-converter-api/api"
+```
+
 ## Usage
 
 Firstly, create an API instance with
