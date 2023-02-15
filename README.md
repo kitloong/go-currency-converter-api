@@ -15,7 +15,7 @@ Firstly, create an API instance with
 | `Version` | The API version number, latest is `v7`.                                            |
 | `APIKey`  | Your secret API key.                                                               |
 
-```
+```go
 currAPI := api.NewAPI(api.Config{
     BaseURL: "https://free.currconv.com",
     Version: "v7",
@@ -23,13 +23,23 @@ currAPI := api.NewAPI(api.Config{
 })
 ```
 
+Available methods:
+
+- [Convert](#convert)
+- [ConvertCompact](#convertcompact)
+- [ConvertHistorical](#converthistorical)
+- [ConvertHistoricalCompact](#converthistoricalcompact)
+- [Currencies](#currencies)
+- [Countries](#countries)
+- [Usage](#usage)
+
 ### `Convert`
 
 Returns the currency conversion rate with `[FROM]_[TO]` request.
 
 To convert currency from `USD` to `MYR`, construct a request struct and set `USD_MYR` to the `Q` field:
 
-```
+```go
 convert, err := currAPI.Convert(api.ConvertRequest{
     Q: []string{"USD_MYR"},
 })
@@ -52,7 +62,7 @@ convert, err := currAPI.Convert(api.ConvertRequest{
 
 Since `Q` is a string slice, you can append more currencies to request multiple conversion in a single request:
 
-```
+```go
 convert, err := currAPI.Convert(api.ConvertRequest{
     Q: []string{"USD_MYR", "MYR_USD"},
 })
@@ -83,7 +93,7 @@ convert, err := currAPI.Convert(api.ConvertRequest{
 
 Returns conversion result with compact mode:
 
-```
+```go
 convert, err := currAPI.ConvertCompact(api.ConvertRequest{
     Q: []string{"USD_MYR", "MYR_USD"},
 })
@@ -99,7 +109,7 @@ convert, err := currAPI.ConvertCompact(api.ConvertRequest{
 
 Returns historical currency conversion rate data:
 
-```
+```go
 convert, err := currAPI.ConvertHistorical(api.ConvertHistoricalRequest{
     Q:    []string{"USD_MYR", "MYR_USD"},
     Date: time.Date(2023, 2, 14, 0, 0, 0, 0, time.UTC),
@@ -133,7 +143,7 @@ convert, err := currAPI.ConvertHistorical(api.ConvertHistoricalRequest{
 
 Set `EndDate` to request historical data with date range:
 
-```
+```go
 convert, err := currAPI.ConvertHistorical(api.ConvertHistoricalRequest{
     Q:       []string{"USD_MYR", "MYR_USD"},
     Date:    time.Date(2023, 2, 1, 0, 0, 0, 0, time.UTC),
@@ -179,7 +189,7 @@ convert, err := currAPI.ConvertHistorical(api.ConvertHistoricalRequest{
 
 Returns historical data with compact mode:
 
-```
+```go
 convert, err := currAPI.ConvertHistoricalCompact(api.ConvertHistoricalRequest{
     Q:       []string{"USD_MYR", "MYR_USD"},
     Date:    time.Date(2023, 2, 1, 0, 0, 0, 0, time.UTC),
@@ -200,7 +210,7 @@ convert, err := currAPI.ConvertHistoricalCompact(api.ConvertHistoricalRequest{
 
 Returns a list of currencies:
 
-```
+```go
 currencies, err := currAPI.Currencies()
 
 // currencies
@@ -225,7 +235,7 @@ currencies, err := currAPI.Currencies()
 
 Returns a list of countries:
 
-```
+```go
 countries, err := currAPI.Countries()
 
 // countries
@@ -256,7 +266,7 @@ countries, err := currAPI.Countries()
 
 Returns your current API usage:
 
-```
+```go
 usage, err := currAPI.Usage()
 
 // usage
