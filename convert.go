@@ -1,4 +1,4 @@
-package api
+package currconv
 
 import (
 	"errors"
