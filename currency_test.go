@@ -1,4 +1,4 @@
-package api
+package currconv
 
 import (
 	"encoding/json"
@@ -10,7 +10,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestAPI_Countries(t *testing.T) {
+func TestAPI_Currencies(t *testing.T) {
 	tests := []struct {
 		name     string
 		respJSON []byte
@@ -20,21 +20,15 @@ func TestAPI_Countries(t *testing.T) {
 			"Success response",
 			[]byte(`{
 				"results": {
-					"MY": {
-						"alpha3": "MYS",
-						"currencyId": "MYR",
-						"currencyName": "Malaysian ringgit",
+					"MYR": {
+						"currencyName": "Malaysian Ringgit",
 						"currencySymbol": "RM",
-						"id": "MY",
-						"name": "Malaysia"
+						"id": "MYR"
 					},
-					"US": {
-						"alpha3": "USA",
-						"currencyId": "USD",
-						"currencyName": "United States dollar",
+					"USD": {
+						"currencyName": "United States Dollar",
 						"currencySymbol": "$",
-						"id": "US",
-						"name": "United States of America"
+						"id": "USD"
 					}
 				}
 			}`),
@@ -50,7 +44,7 @@ func TestAPI_Countries(t *testing.T) {
 					return
 				}
 
-				assert.Equal(t, "/api/v1/countries", r.URL.Path)
+				assert.Equal(t, "/api/v1/currencies", r.URL.Path)
 
 				q := url.Values{}
 				q.Add("apiKey", "key")
@@ -65,13 +59,13 @@ func TestAPI_Countries(t *testing.T) {
 				Version: "v1",
 			})
 
-			convert, err := api.Countries()
+			convert, err := api.Currencies()
 			if err != nil {
 				assert.Equal(t, tt.error, err)
 				return
 			}
 
-			expected := &Country{}
+			expected := &Currency{}
 
 			err = json.Unmarshal(tt.respJSON, expected)
 			if err != nil {
