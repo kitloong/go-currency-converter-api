@@ -10,7 +10,7 @@ currencies and check historical rate with a given date range.
 Use go get
 
 ```bash
-go get github.com/kitloong/go-currency-converter-api
+go get github.com/kitloong/go-currency-converter-api/v2
 ```
 
 Then import

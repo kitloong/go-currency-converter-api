@@ -1,4 +1,4 @@
-module github.com/kitloong/go-currency-converter-api
+module github.com/kitloong/go-currency-converter-api/v2
 
 go 1.19
 
