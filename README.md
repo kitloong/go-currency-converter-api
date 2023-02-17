@@ -1,5 +1,10 @@
 # Currency Converter API
 
+[![Go Reference](https://pkg.go.dev/badge/github.com/kitloong/go-currency-converter-api/v2.svg)](https://pkg.go.dev/github.com/kitloong/go-currency-converter-api/v2)
+[![Go Report Card](https://goreportcard.com/badge/github.com/kitloong/go-currency-converter-api/v2)](https://goreportcard.com/report/github.com/kitloong/go-currency-converter-api/v2)
+![Run tests](https://github.com/kitloong/go-currency-converter-api/workflows/Run%20tests/badge.svg?branch=2.x)
+[![MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+
 A GoLang wrapper of [Currency Converter API](https://www.currencyconverterapi.com).
 
 You can use [Currency Converter API](https://www.currencyconverterapi.com) to easily query conversion between difference
