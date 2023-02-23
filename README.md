@@ -21,7 +21,7 @@ go get github.com/kitloong/go-currency-converter-api/v2
 Then import
 
 ```go
-import "github.com/kitloong/go-currency-converter-api/api"
+import "github.com/kitloong/go-currency-converter-api/v2"
 ```
 
 ## Usage
